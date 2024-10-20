@@ -1,0 +1,42 @@
+$nomention
+$suppressErrors
+$if[$message[1]==Role]
+$var[id;$findRole[$message[2]]]
+$if[$message[2]==]
+:x: Ningun argumento obtenido
+ `Selecciona un rol`
+$stop
+$elseif[$roleExists[$var[id]]==false]
+:x: El rol `$var[id]` no existe prueba de nuevo.
+$stop
+$elseif[$checkUserPerms[$authorID;admin]==false]
+:x: No tienes adminstrador para hacer esto
+$stop
+$elseif[$checkUserPerms[$botID;admin]==false]
+Por favor dame administrador
+$stop
+$endif
+$if[$message[2]==]
+$else
+:white_check_mark: Rol de verificación establecido.
+Rol: `$roleName[$var[id]]`
+$setServerVar[VRole;$var[id];$guildID]
+$endif
+$endif
+$endif
+
+$if[$message[1]==Panel]
+$if[$getServerVar[VRole;$guildID]==]
+Aún no haz establecido un rol para el sistema de verificación.
+prueba usando `E!setVerify-Role @rol`
+$else
+$onlyIf[$mentionedChannels[1]!=; Porfavor menciona un canal a dónde enviar el panel.]
+$useChannel[$mentionedChannels[1]]
+$deletecommand
+$title[Verificación]
+$description[Hola usuarios de **$serverName[$guildID]**, para verificarte presiona el botón de aquí abajo ⬇️]
+$thumbnail[$serverIcon]
+$footer[$serverName[$guildID] • Verification system]
+$addButton[no;verify;Verificate;primary;no;✅]
+$endif
+$endif
