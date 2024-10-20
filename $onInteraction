@@ -1,0 +1,21 @@
+$textSplit[$customID;-]
+$suppressErrors[Error inesperado, inténtelo nuevamente.]
+$if[$splitText[1]==very]
+$removeButtons$ephemeral$nomention
+
+$var[role;$getServerVar[VRole;$guildID]]
+
+$if[$splitText[2]==$getUserVar[very;$authorID]]
+$setUserVar[very;VERIFICADO;$authorID]
+$roleGrant[$authorID;+$var[role]]
+✅ Verificación completada correctamente, se te ah añadido el rol <@&$var[role]> a tu lista de roles.
+
+$suppressErrors[Respondiste bien pero ocurrió un error en el sistema, comunica a algún staff que establezca el rol de verificación]
+$else
+$setUserVar[very; ;$authorID]
+❌ Lo sentimos <@$authorID>, pero `$splitText[2]` no es el código correcto.
+Inténtalo nuevamente.
+
+$suppressErrors[Ocurrió un error inesperado]
+$endif
+$endif
