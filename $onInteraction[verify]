@@ -1,0 +1,21 @@
+$ephemeral
+$removeButtons
+$suppressErrors[Error inesperado, pruebe nuevamente]
+$if[$getUserVar[very;$authorID]==VERIFICADO]
+$nomention
+Hey $nickname[$authorID]! ya estás verificado correctamente, si por algún motivo perdiste el rol, pide a un staff que te lo de manualmente.
+$else
+$httpGet[https://edgabot.lucnodes.es/api/others/captcha.php]
+$suppressErrors[En estos momentos la API se encuentra caída, comuníquese con Edgajuman.]
+$nomention
+$title[Verificación Pendiente]
+$description[Hola $nickname[$authorID], para verificarte selecciona el botón que contenga el código de la imagen mostrada.]
+$thumbnail[$authorAvatar]
+$image[$httpResult[api_response;url]]
+$setUserVar[very;$httpResult[api_response;code];$authorID]
+$addButton[no;very-$httpResult[generated_codes;code1];$httpResult[generated_codes;code1];primary;no;]
+$addButton[no;very-$httpResult[generated_codes;code2];$httpResult[generated_codes;code2];primary;no;]
+$addButton[no;very-$httpResult[generated_codes;code3];$httpResult[generated_codes;code3];primary;no;]
+$addButton[no;very-$httpResult[generated_codes;code4];$httpResult[generated_codes;code4];primary;no;]
+$addButton[no;very-$httpResult[generated_codes;code5];$httpResult[generated_codes;code5];primary;no;]
+$endif
